@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="myclass">
+        <h1>おはようございます</h1>
+        <h2>
+            こんにちは
+        </h2>
+    </div>
+    <br>
+    <div class="row">
+        <div *ngFor="let product of products" class="col-sm">
+            <a [routerLink]="['details']">
+                <div class="card">
+                    <img src="/assets/img/ph.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
