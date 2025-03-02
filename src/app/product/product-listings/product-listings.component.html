@@ -7,8 +7,8 @@
     </div>
     <br>
     <div class="row">
-        <div *ngFor="let product of products" class="col-sm">
-            <a [routerLink]="['details']">
+        <div *ngFor="let product of products; let productId = index" class="col-sm">
+            <a [routerLink]="[productId]">
                 <div class="card">
                     <img src="/assets/img/ph.png" class="card-img-top" alt="...">
                     <div class="card-body">
