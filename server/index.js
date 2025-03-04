@@ -1,32 +1,45 @@
 const express = require('express')
 const mongoose = require('mongoose');
-const config = require('./config/dev')
+const config = require('./config/')
 const FakeDb = require('./fake-db')
 
 const productRoutes = require('./routes/products')
+const path = require('path')
 
-mongoose.connect(config.DB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(
-    () => {
+// mongoose.connect(config.DB_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }).then(
+//     () => {
+//         if (process.env.NODE_ENV === 'production') {
+//             const fakeDb = new FakeDb();
+//             fakeDb.initDb();
+//         }
+//         console.log('MongoDB Connected')
+//     }
+// ).catch(err => console.error('MongoDB connection error:', err));
+
+mongoose.connect(config.DB_URI)
+    .then(async () => {
+        console.log('MongoDB Connected');
         const fakeDb = new FakeDb();
-        console.log('MongoDB Connected')
-        fakeDb.initDb();
-    }
-).catch(err => console.error('MongoDB connection error:', err));
+        await fakeDb.initDb();
+    })
+    .catch(err => console.error('MongoDB connection error:', err));
 
-const app = express()
+const app = express();
 
-app.use('/api/v1/products', productRoutes)
+app.use('/api/v1/products', productRoutes);
 
-const PORT = process.env.PORT || '3001'
+const appPath = path.join(__dirname, '..', 'dist', 'new-app');
+app.use(express.static(appPath));
+app.get('*', function (req, res) {
+    res.sendFile(path.resolve(appPath, 'index.html'));
+});
 
-app.listen('3001', function () {
-    console.log('I am running!')
-})
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, function () {
+    console.log('I am running!');
+});
 
 
-// npm install mongodb@3.7
-
-//   mongodb+srv://ryushin0714:<db_password>@cluster0.ycna047.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0

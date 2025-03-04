@@ -54,26 +54,38 @@ class FakeDb {
         ]
     }
 
+    // async initDb() {
+    //     await this.cleanDb()
+    //     this.pushProductsToDb()
+    // }
+
     async initDb() {
-        await this.cleanDb()
-        this.pushProductsToDb()
+        console.log('Cleaning DB...');
+        await this.cleanDb();
+        console.log('DB Cleaned. Inserting products...');
+        await this.pushProductsToDb();
+        console.log('Products inserted.');
     }
 
     async cleanDb() {
-        await Product.deleteMany({})
+        await Product.deleteMany({});
+        console.log('Existing products removed.');
     }
 
-    pushProductsToDb() {
-        this.products.forEach(
-            (product) => {
-                const newProduct = new Product(product)
-                newProduct.save()
+    async pushProductsToDb() {
+        for (const product of this.products) {
+            try {
+                const newProduct = new Product(product);
+                await newProduct.save();
+                console.log(`Saved product: ${newProduct.name}`);
+            } catch (err) {
+                console.error(`Error saving product: ${err.message}`);
             }
-        )
+        }
     }
     seeDb() {
         this.pushProductsToDb()
     }
 }
 
-module.exports = FakeDb
+module.exports = FakeDb;
