@@ -24,7 +24,7 @@ mongoose.connect(config.DB_URI)
         if (process.env.NODE_ENV !== 'production') {
             console.log('MongoDB Connected');
             const fakeDb = new FakeDb();
-            await fakeDb.initDb();
+            // await fakeDb.initDb();
         }
     })
     .catch(err => console.error('MongoDB connection error:', err));
