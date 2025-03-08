@@ -1,15 +1,84 @@
-import { Component, OnInit } from '@angular/core';
+// import { Component, OnInit } from '@angular/core';
+// import { NgForm } from '@angular/forms';
+// import { AuthService } from '../shared/auth.service';
+// import { HttpErrorResponse } from '@angular/common/http';
+
+// @Component({
+//     selector: 'app-register',
+//     templateUrl: './register.component.html',
+//     styleUrls: ['./register.component.scss']
+// })
+// export class RegisterComponent implements OnInit {
+//     errors: any = []
+//     focus: boolean = false;
+//     focus1: boolean = false;
+//     constructor(private authService: AuthService) { }
+
+//     ngOnInit() { }
+
+//     register(registerForm: NgForm) {
+//         this.authService.register(registerForm.value).subscribe(
+//             (result) => {
+//                 console.log("Success")
+//             },
+//             (err: HttpErrorResponse) => {
+//                 console.error(err)
+//                 this.errors = err.error.errors
+//             }
+//         )
+
+//         console.log('Form Submitted:', registerForm.value);
+//     }
+// }
+
+
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
-    test: Date = new Date();
+export class RegisterComponent {
+    errors: string[] = [];  // ✅ 空の配列で初期化
     focus: boolean = false;
     focus1: boolean = false;
-    constructor() { }
 
-    ngOnInit() { }
+    constructor(
+        private http: HttpClient,
+        private router: Router
+    ) { }
+
+    register(registerForm: NgForm) {
+        if (!registerForm.valid) {
+            this.errors = ['Please fill out all fields correctly.'];
+            return;
+        }
+
+        const formData = registerForm.value;
+
+        if (formData.password !== formData.confirmPassword) {
+            this.errors = ['Passwords do not match.'];
+            return;
+        }
+
+        this.http.post('/api/v1/users/register', formData).subscribe({
+            next: (response) => {
+                console.log('Registration successful', response);
+                this.errors = []; // ✅ 成功時はエラーメッセージをクリア
+                this.router.navigate(['/login'])
+            },
+            error: (err) => {
+                console.error('Registration error:', err);
+                if (err.error && err.error.error) {
+                    this.errors = [err.error.error];  // ✅ サーバーのエラーメッセージを取得
+                } else {
+                    this.errors = ['An unexpected error occurred.'];
+                }
+            }
+        });
+    }
 }
