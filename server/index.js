@@ -1,23 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 const config = require('./config/')
 const FakeDb = require('./fake-db')
 
 const productRoutes = require('./routes/products')
+const userRoutes = require('./routes/users')
+
 const path = require('path')
 
-// mongoose.connect(config.DB_URI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// }).then(
-//     () => {
-//         if (process.env.NODE_ENV === 'production') {
-//             const fakeDb = new FakeDb();
-//             fakeDb.initDb();
-//         }
-//         console.log('MongoDB Connected')
-//     }
-// ).catch(err => console.error('MongoDB connection error:', err));
 
 mongoose.connect(config.DB_URI)
     .then(async () => {
@@ -30,8 +21,10 @@ mongoose.connect(config.DB_URI)
     .catch(err => console.error('MongoDB connection error:', err));
 
 const app = express();
+app.use(bodyParser.json())
 
 app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/users', userRoutes);
 
 if (process.env.NODE_ENV === 'production') {
     const appPath = path.join(__dirname, '..', 'dist', 'new-app');
