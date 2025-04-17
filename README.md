@@ -1,27 +1,33 @@
-# NewApp
+# New App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+## 📘 Overview
+This is a practice project built with Angular.  
+It was created to learn the basics of component structure, routing, and styling using SCSS.
 
-## Development server
+## 🔧 Tech Stack
+- Angular
+- TypeScript
+- HTML/CSS
+- SCSS
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 💡 Features
+- Basic Angular project setup
+- SCSS module integration
+- Placeholder components for future UI development
 
-## Code scaffolding
+## 📷 Screenshots
+*(You can add screenshots here using `![Alt Text](url)` once your UI is built)*
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Getting Started
 
-## Build
+### Prerequisites
+- Node.js (v18+)
+- Angular CLI
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Installation
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+git clone https://github.com/7-ry/new-app.git
+cd new-app
+npm install
+ng serve
