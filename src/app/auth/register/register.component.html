@@ -41,8 +41,7 @@
                                 </div>
 
                                 <input ngModel name="email" type="email" class="form-control" placeholder="Email"
-                                    (focus)="focus=true" (blur)="focus=false"
-                                    pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                    (focus)="focus=true" (blur)="focus=false" pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                                     required>
                             </div>
 

@@ -1,9 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
-const config = require('./config/')
+const config = require('./config')
 const FakeDb = require('./fake-db')
-
 const productRoutes = require('./routes/products')
 const userRoutes = require('./routes/users')
 

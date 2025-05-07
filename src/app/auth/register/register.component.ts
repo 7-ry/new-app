@@ -1,37 +1,3 @@
-// import { Component, OnInit } from '@angular/core';
-// import { NgForm } from '@angular/forms';
-// import { AuthService } from '../shared/auth.service';
-// import { HttpErrorResponse } from '@angular/common/http';
-
-// @Component({
-//     selector: 'app-register',
-//     templateUrl: './register.component.html',
-//     styleUrls: ['./register.component.scss']
-// })
-// export class RegisterComponent implements OnInit {
-//     errors: any = []
-//     focus: boolean = false;
-//     focus1: boolean = false;
-//     constructor(private authService: AuthService) { }
-
-//     ngOnInit() { }
-
-//     register(registerForm: NgForm) {
-//         this.authService.register(registerForm.value).subscribe(
-//             (result) => {
-//                 console.log("Success")
-//             },
-//             (err: HttpErrorResponse) => {
-//                 console.error(err)
-//                 this.errors = err.error.errors
-//             }
-//         )
-
-//         console.log('Form Submitted:', registerForm.value);
-//     }
-// }
-
-
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
